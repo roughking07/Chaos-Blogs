@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block title %} Home  {% endblock %}
+
+{% block body_block %}
+  <h2 style="font-family: 'Poppins','sans-serif';font-weight: 1000; text-align: center;">Chaos Blogs</h2>
+{% for blog in blogs %}
+<hr size="2px;">
+<h2> {{ blog.blog_title }}</h2><br>
+
+
+<div class="row">
+  <div class="col-sm-4">
+    <img src="/media/{{blog.blog_image}}" alt="{{ blog.blog_title }}" title="{{ blog.blog_title }}" width="90%">
+    
+  </div>
+  
+
+  <div class="col-sm-8">
+    <h6><i>{{ blog.publish_date }}</i></h6>
+    <p style="font-family: 'Poppins','sans-serif';">{{ blog.blog_content|safe|striptags|range_filter|linebreaks }}
+   <a href="{% url 'App_Blog:blog_details' slug=blog.slug %}">Read More</a>
+</p>
+<h6 style="font-family: 'Poppins','sans-serif'; font-weight: 700;">Posted By: <a href="#">{{ blog.author }}</a></h6>
+<h6 style="font-family: 'Poppins','sans-serif';font-weight: 750;">{{ blog.liked_blog.count }} Likes | {{ blog.blog_comment.count }} Comments</h6>
+  </div>
+
+</div>
+
+
+
+
+
+
+{% endfor %}
+{% endblock %}
